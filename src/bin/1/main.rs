@@ -1,5 +1,4 @@
 use serde_derive::Deserialize;
-use std::env;
 
 #[derive(Deserialize, Debug)]
 struct Data {
@@ -24,7 +23,6 @@ fn find_distance(lists: &Vec<Vec<isize>>) -> isize {
 
 fn calculate_similarity(lists: Vec<Vec<isize>>) -> isize {
     let mut similarity: isize = 0;
-    // loop through all numbers in the first list, and multiply it by the number of times it appears in the second list
     for i in 0..lists[0].len() {
         let mut count: isize = 0;
         for j in 0..lists[1].len() {

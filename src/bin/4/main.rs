@@ -13,7 +13,7 @@ fn count_x_max(csv_string: &str) -> i64 {
     let mut total: i64 = 0;
 
     for y in 0..rows.len() {
-        for x in 0..rows[y].len() {
+        'x: for x in 0..rows[y].len() {
             if rows[x][y] != String::from('A') {
                 continue;
             }
@@ -49,9 +49,11 @@ fn count_x_max(csv_string: &str) -> i64 {
                 }
 
                 matches += 1;
-            }
-            if matches > 1 {
-                total += 1;
+
+                if matches > 1 {
+                    total += 1;
+                    continue 'x;
+                }
             }
         }
     }

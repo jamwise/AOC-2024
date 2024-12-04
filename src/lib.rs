@@ -1,9 +1,10 @@
-pub fn parse_csv_by_column(csv_string: &str) -> Vec<Vec<i64>> {
+pub fn parse_csv_by_column<T: std::str::FromStr>(csv_string: &str) -> Vec<Vec<T>> 
+where <T as std::str::FromStr>::Err: std::fmt::Debug {
     let mut rdr = csv::ReaderBuilder::new()
         .has_headers(false)
         .from_reader(csv_string.as_bytes());
 
-    let mut data: Vec<Vec<i64>> = Vec::new();
+    let mut data: Vec<Vec<T>> = Vec::new();
 
     for result in rdr.records() {
         let record = result.unwrap();
@@ -18,17 +19,18 @@ pub fn parse_csv_by_column(csv_string: &str) -> Vec<Vec<i64>> {
     data
 }
 
-pub fn parse_csv_by_row(csv_string: &str) -> Vec<Vec<i64>> {
+pub fn parse_csv_by_row<T: std::str::FromStr>(csv_string: &str) -> Vec<Vec<T>> 
+where <T as std::str::FromStr>::Err: std::fmt::Debug {
     let mut rdr = csv::ReaderBuilder::new()
         .flexible(true)
         .has_headers(false)
         .from_reader(csv_string.as_bytes());
 
-    let mut data: Vec<Vec<i64>> = Vec::new();
+    let mut data: Vec<Vec<T>> = Vec::new();
 
     for result in rdr.records() {
         let record = result.unwrap();
-        let mut row: Vec<i64> = Vec::new();
+        let mut row: Vec<T> = Vec::new();
         for i in 0..record.len() {
             row.push(record[i].parse().unwrap());
         }

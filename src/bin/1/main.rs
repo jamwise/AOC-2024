@@ -1,7 +1,7 @@
 use aoc_2024::parse_csv_by_column;
 
 fn find_distance(csv_string: &str) -> i64 {
-    let data = parse_csv_by_column(csv_string);
+    let data = parse_csv_by_column::<i64>(csv_string);
     let mut left = data[0].clone();
     let mut right = data[1].clone();
     let mut distance: i64 = 0;
@@ -15,7 +15,7 @@ fn find_distance(csv_string: &str) -> i64 {
 }
 
 fn calculate_similarity(csv_string: &str) -> i64 {
-    let data = parse_csv_by_column(csv_string);
+    let data = parse_csv_by_column::<i64>(csv_string);
     let left = data[0].clone();
     let right = data[1].clone();
 

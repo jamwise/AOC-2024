@@ -55,7 +55,7 @@ fn validate_report(report: &[i64], dampen: bool) -> Status {
 }
 
 fn number_of_safe_reports(csv_string: &str, apply_dampener: bool) -> (i64, Vec<Status>) {
-    let reports = parse_csv_by_row(csv_string);
+    let reports = parse_csv_by_row::<i64>(csv_string);
     let mut statuses = Vec::new();
 
     for report in reports {

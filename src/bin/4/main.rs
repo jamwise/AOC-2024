@@ -1,4 +1,5 @@
 use aoc_2024::parse_csv_by_row;
+use aoc_2024::parse_string;
 
 fn count_x_max(csv_string: &str) -> i64 {
     let directions: Vec<((i64, i64), (i64, i64))> = vec![
@@ -8,7 +9,8 @@ fn count_x_max(csv_string: &str) -> i64 {
         ((-1, -1), (1, 1)), // NW, SE
     ];
 
-    let rows = parse_csv_by_row::<String>(csv_string);
+    let rows = parse_string(csv_string, r"(.*?),").expect("Error parsing CSV");
+    println!("{:?}", rows);
 
     let mut total: i64 = 0;
 

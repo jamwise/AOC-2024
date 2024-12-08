@@ -1,7 +1,9 @@
 use fancy_regex::Regex;
 
-pub fn parse_csv_by_column<T: std::str::FromStr>(csv_string: &str) -> Vec<Vec<T>> 
-where <T as std::str::FromStr>::Err: std::fmt::Debug {
+pub fn parse_csv_by_column<T: std::str::FromStr>(csv_string: &str) -> Vec<Vec<T>>
+where
+    <T as std::str::FromStr>::Err: std::fmt::Debug,
+{
     let mut rdr = csv::ReaderBuilder::new()
         .has_headers(false)
         .from_reader(csv_string.as_bytes());
@@ -21,8 +23,10 @@ where <T as std::str::FromStr>::Err: std::fmt::Debug {
     data
 }
 
-pub fn parse_csv_by_row<T: std::str::FromStr>(csv_string: &str) -> Vec<Vec<T>> 
-where <T as std::str::FromStr>::Err: std::fmt::Debug {
+pub fn parse_csv_by_row<T: std::str::FromStr>(csv_string: &str) -> Vec<Vec<T>>
+where
+    <T as std::str::FromStr>::Err: std::fmt::Debug,
+{
     let mut rdr = csv::ReaderBuilder::new()
         .flexible(true)
         .has_headers(false)
@@ -42,19 +46,30 @@ where <T as std::str::FromStr>::Err: std::fmt::Debug {
     data
 }
 
-pub fn parse_string(input: &str, pattern: &str) -> Result<Vec<Vec<String>>, Box<dyn std::error::Error>> {
+pub fn parse_string(
+    input: &str,
+    pattern: &str,
+) -> Result<Vec<Vec<String>>, Box<dyn std::error::Error>> {
     let regex = Regex::new(pattern)?;
-    
+
     let result = input
         .lines()
         .map(|line| {
-            if let Some(captures) = regex.captures(line).expect("No captures") {
-                Ok((1..captures.len())
-                    .map(|i| captures.get(i).unwrap().as_str().to_string())
-                    .collect())
-            } else {
-                Ok(Vec::new())
-            }
+            let line_matches: Result<Vec<Vec<String>>, Box<dyn std::error::Error>> = regex
+                .captures_iter(line)
+                .map(
+                    |capture_result| -> Result<Vec<String>, Box<dyn std::error::Error>> {
+                        let captures = capture_result.unwrap();
+
+                        Ok((1..captures.len())
+                            .filter_map(|i| captures.get(i).map(|m| m.as_str().to_string()))
+                            .collect())
+                    },
+                )
+                .collect();
+
+
+            line_matches.map(|matches| matches.into_iter().flatten().collect())
         })
         .collect::<Result<Vec<_>, Box<dyn std::error::Error>>>()?;
 

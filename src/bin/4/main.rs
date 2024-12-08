@@ -1,4 +1,3 @@
-use aoc_2024::parse_csv_by_row;
 use aoc_2024::parse_string;
 
 fn count_x_max(csv_string: &str) -> i64 {
@@ -9,13 +8,12 @@ fn count_x_max(csv_string: &str) -> i64 {
         ((-1, -1), (1, 1)), // NW, SE
     ];
 
-    let rows = parse_string(csv_string, r"(.*?),").expect("Error parsing CSV");
-    println!("{:?}", rows);
+    let rows = parse_string(csv_string, r"([A-Z])").expect("Error parsing CSV");
 
     let mut total: i64 = 0;
 
-    for y in 0..rows.len() {
-        'x: for x in 0..rows[y].len() {
+    for x in 0..rows.len() {
+        'y: for y in 0..rows[x].len() {
             if rows[x][y] != String::from('A') {
                 continue;
             }
@@ -54,7 +52,7 @@ fn count_x_max(csv_string: &str) -> i64 {
 
                 if matches > 1 {
                     total += 1;
-                    continue 'x;
+                    continue 'y;
                 }
             }
         }
@@ -75,7 +73,7 @@ fn count_xmas(csv_string: &str) -> i64 {
         (-1, -1), // NW
     ];
 
-    let rows = parse_csv_by_row::<String>(csv_string);
+    let rows = parse_string(csv_string, r"([A-Z])").expect("Error parsing CSV");
 
     let to_find = vec![
         String::from('X'),
@@ -88,8 +86,8 @@ fn count_xmas(csv_string: &str) -> i64 {
 
     let mut total: i64 = 0;
 
-    for y in 0..rows.len() {
-        for x in 0..rows[y].len() {
+    for x in 0..rows.len() {
+        for y in 0..rows[x].len() {
             if rows[x][y] != to_find[0] {
                 continue;
             }

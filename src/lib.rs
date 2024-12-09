@@ -1,4 +1,5 @@
 use fancy_regex::Regex;
+use std::time::Instant;
 
 pub fn parse_csv_by_column<T: std::str::FromStr>(csv_string: &str) -> Vec<Vec<T>>
 where
@@ -74,4 +75,24 @@ pub fn parse_string(
         .collect::<Result<Vec<_>, Box<dyn std::error::Error>>>()?;
 
     Ok(result)
+}
+
+pub fn log_output<F>(part: usize, function: F) -> ()
+where F: Fn() -> i64
+{
+    let start = Instant::now();
+    let result = function();
+    let duration = start.elapsed();
+    println!("Part {}: {} in {:.1?}", part, result, duration);
+}
+
+pub fn print_rows<T>(rows: &Vec<Vec<T>>) -> ()
+where T: std::fmt::Display 
+{
+    for row in rows {
+        for cell in row {
+            print!("{}", cell);
+        }
+        println!();
+    }
 }

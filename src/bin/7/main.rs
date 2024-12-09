@@ -1,4 +1,4 @@
-use aoc_2024::parse_string;
+use aoc_2024::{parse_string, log_output};
 
 fn generate_combinations(chars: &Vec<char>, length: usize) -> Vec<Vec<char>> {
     let mut result = Vec::new();
@@ -71,8 +71,8 @@ fn part2(puzzle: &str) -> i64 {
 }
 
 fn main() {
-    println!("Part 1: {}", part1(include_str!("data.txt")));
-    println!("Part 2: {}", part2(include_str!("data.txt")));
+    log_output(1, || part1(include_str!("data.txt")));
+    log_output(2, || part2(include_str!("data.txt")));
 }
 
 #[cfg(test)]

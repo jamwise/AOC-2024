@@ -1,4 +1,4 @@
-use aoc_2024::parse_string;
+use aoc_2024::{parse_string, log_output};
 use std::collections::HashMap;
 use std::cmp::Ordering;
 
@@ -70,16 +70,16 @@ fn part2(rules: &str, updates: &str) -> i64 {
 }
 
 fn main() {
-    println!(
-        "Part 1: {}",
-        part1(
+    log_output(
+        1,
+        || part1(
             include_str!("data_rules.txt"),
             include_str!("data_updates.txt")
         )
     );
-    println!(
-        "Part 2: {}",
-        part2(
+    log_output(
+        2,
+        || part2(
             include_str!("data_rules.txt"),
             include_str!("data_updates.txt")
         )

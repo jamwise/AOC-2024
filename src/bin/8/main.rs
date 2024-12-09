@@ -1,4 +1,4 @@
-use aoc_2024::parse_string;
+use aoc_2024::{parse_string, log_output};
 use std::collections::HashMap;
 use std::collections::HashSet;
 
@@ -7,15 +7,6 @@ fn position_in_bounds(position: &(i64, i64), rows: &Vec<Vec<String>>) -> bool {
         && position.1 < rows.len() as i64
         && position.0 >= 0
         && position.0 < rows[0].len() as i64
-}
-
-fn print_rows(rows: &Vec<Vec<String>>) {
-    for row in rows {
-        for cell in row {
-            print!("{}", cell);
-        }
-        println!();
-    }
 }
 
 fn get_antinodes(position1: &(i64, i64), position2: &(i64, i64), resonant: bool, rows: &Vec<Vec<String>>) -> Vec<(i64, i64)> {
@@ -76,14 +67,14 @@ fn count_antinodes(puzzle: &str, resonate: bool) -> i64 {
         rows[node.1 as usize][node.0 as usize] = "#".to_string();
     }
 
-    print_rows(&rows);
+    // print_rows(&rows);
 
     antinodes.len() as i64
 }
 
 fn main() {
-    println!("Part 1: {}", count_antinodes(include_str!("data.txt"), false));
-    println!("Part 2: {}", count_antinodes(include_str!("data.txt"), true));
+    log_output(1, || count_antinodes(include_str!("data.txt"), false));
+    log_output(2, || count_antinodes(include_str!("data.txt"), true));
 }
 
 #[cfg(test)]

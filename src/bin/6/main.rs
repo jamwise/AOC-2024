@@ -1,4 +1,4 @@
-use aoc_2024::parse_string;
+use aoc_2024::{parse_string, log_output};
 use std::collections::HashMap;
 
 fn map_floor(floor: &Vec<Vec<String>>) -> HashMap<(i64, i64), String> {
@@ -135,8 +135,8 @@ fn part2(floor_str: &str) -> i64 {
 }
 
 fn main() {
-    println!("Part 1: {}", part1(include_str!("data.txt")));
-    println!("Part 2: {}", part2(include_str!("data.txt")));
+    log_output(1, || part1(include_str!("data.txt")));
+    log_output(2, || part2(include_str!("data.txt")));
 }
 
 #[cfg(test)]

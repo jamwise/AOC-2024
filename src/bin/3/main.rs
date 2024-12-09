@@ -1,4 +1,5 @@
 use fancy_regex::Regex;
+use aoc_2024::{log_output};
 
 fn fix_corrupted_logic(memory: &str) -> i64 {
     let split_regex = r"(?m)(do\(\)|don't\(\))";
@@ -45,13 +46,13 @@ fn fix_corrupted_memory(memory: &str) -> i64 {
 }
 
 fn main() {
-    println!(
-        "Part 1: {}",
-        fix_corrupted_memory(include_str!("data.txt"))
+    log_output(
+        1,
+        || fix_corrupted_memory(include_str!("data.txt"))
     );
-    println!(
-        "Part 2: {}",
-        fix_corrupted_logic(include_str!("data.txt"))
+    log_output(
+        2,
+        || fix_corrupted_logic(include_str!("data.txt"))
     );
 }
 

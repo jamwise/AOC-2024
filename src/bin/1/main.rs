@@ -1,4 +1,4 @@
-use aoc_2024::parse_csv_by_column;
+use aoc_2024::{log_output, parse_csv_by_column};
 
 fn find_distance(csv_string: &str) -> i64 {
     let data = parse_csv_by_column::<i64>(csv_string);
@@ -33,8 +33,8 @@ fn calculate_similarity(csv_string: &str) -> i64 {
 }
 
 fn main() {
-    println!("Part 1: {}", find_distance(include_str!("data.csv")));
-    println!("Part 2: {}", calculate_similarity(include_str!("data.csv")));
+    log_output(1, || find_distance(include_str!("data.csv")));
+    log_output(2, || calculate_similarity(include_str!("data.csv")));
 }
 
 #[cfg(test)]

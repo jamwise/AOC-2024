@@ -1,4 +1,4 @@
-use aoc_2024::parse_csv_by_row;
+use aoc_2024::{log_output, parse_csv_by_row};
 
 #[derive(PartialEq, Debug)]
 enum Status {
@@ -72,14 +72,14 @@ fn number_of_safe_reports(csv_string: &str, apply_dampener: bool) -> (i64, Vec<S
 }
 
 fn main() {
-    println!(
-        "Part 1: {}",
-        number_of_safe_reports(include_str!("data.csv"), false).0
+    log_output(
+        1,
+        || number_of_safe_reports(include_str!("data.csv"), false).0
     );
 
-    println!(
-        "Part 2: {}",
-        number_of_safe_reports(include_str!("data.csv"), true).0
+    log_output(
+        2,
+        || number_of_safe_reports(include_str!("data.csv"), true).0
     );
 }
 

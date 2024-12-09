@@ -1,4 +1,5 @@
 use std::collections::HashSet;
+use aoc_2024::log_output;
 
 fn get_disk_map(puzzle: &Vec<usize>) -> Vec<i64> {
     let mut disk_map: Vec<i64> = Vec::new();
@@ -92,6 +93,9 @@ fn part2(puzzle: &str) -> i64 {
                         moved_ids.insert(reverse_file_id);
                     }
                     reverse_index -= 2;
+                    if space_size == 0 {
+                        break;
+                    }
                 }
                 disk_map.extend(vec![-1; space_size]);
             }
@@ -118,8 +122,8 @@ fn part2(puzzle: &str) -> i64 {
 }
 
 fn main() {
-    println!("Part 1: {}", part1(include_str!("data.txt")));
-    println!("Part 2: {}", part2(include_str!("data.txt")));
+    log_output(1, || part1(include_str!("data.txt")));
+    log_output(2, || part2(include_str!("data.txt")));
 }
 
 #[cfg(test)]

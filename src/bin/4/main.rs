@@ -1,4 +1,4 @@
-use aoc_2024::parse_string;
+use aoc_2024::{parse_string, log_output};
 
 fn count_x_max(csv_string: &str) -> i64 {
     let directions: Vec<((i64, i64), (i64, i64))> = vec![
@@ -122,8 +122,8 @@ fn count_xmas(csv_string: &str) -> i64 {
 }
 
 fn main() {
-    println!("Part 1: {}", count_xmas(include_str!("data.csv")));
-    println!("Part 2: {}", count_x_max(include_str!("data.csv")));
+    log_output(1, || count_xmas(include_str!("data.csv")));
+    log_output(2, || count_x_max(include_str!("data.csv")));
 }
 
 #[cfg(test)]

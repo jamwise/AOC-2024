@@ -1,5 +1,6 @@
 use aoc_2024::{parse_string, log_output};
 use std::collections::HashMap;
+use std::collections::HashSet;
 
 fn map_floor(floor: &Vec<Vec<String>>) -> HashMap<(i64, i64), String> {
     let mut floor_map = HashMap::new();
@@ -23,7 +24,7 @@ fn walk_path(
     start: (i64, i64),
     direction: usize,
     floor_map: &HashMap<(i64, i64), String>,
-    visited_positions: Vec<(i64, i64)>,
+    visited_positions: HashSet<(i64, i64)>,
     loop_check: bool,
 ) -> i64 {
     let directions: Vec<(i64, i64)> = vec![(0, -1), (1, 0), (0, 1), (-1, 0)];
@@ -32,7 +33,7 @@ fn walk_path(
     let mut visited_obstacles: Vec<((i64, i64), (i64, i64))> = Vec::new();
     let mut current_position = start.clone();
 
-    let mut loop_obstacles = Vec::new();
+    let mut loop_obstacles = HashSet::new();
 
     while position_in_bounds(&current_position, &floor) {
         let next_position = (
@@ -53,15 +54,15 @@ fn walk_path(
                     current_position.clone(),
                     direction,
                     &new_floor_map,
-                    Vec::new(),
+                    HashSet::new(),
                     false,
                 ) == -1
                 {
-                    loop_obstacles.push(next_position.clone());
+                    loop_obstacles.insert(next_position.clone());
                 }
             }
 
-            visited_positions.push(next_position.clone());
+            visited_positions.insert(next_position.clone());
             current_position = next_position;
         } else {
             if !loop_check
@@ -75,20 +76,15 @@ fn walk_path(
     }
 
     if loop_check {
-        loop_obstacles.sort();
-        loop_obstacles.dedup();
-
         return loop_obstacles.len() as i64;
     }
 
-    visited_positions.sort();
-    visited_positions.dedup();
     visited_positions.len() as i64
 }
 
 fn part1(floor_str: &str) -> i64 {
     let floor = parse_string(floor_str, r"(.)").expect("Error parsing floor");
-    let mut visited_positions: Vec<(i64, i64)> = Vec::new();
+    let mut visited_positions: HashSet<(i64, i64)> = HashSet::new();
     let floor_map = map_floor(&floor);
 
     let current_position = floor_map
@@ -98,7 +94,7 @@ fn part1(floor_str: &str) -> i64 {
         .0
         .clone();
 
-    visited_positions.push(current_position.clone());
+    visited_positions.insert(current_position.clone());
 
     walk_path(
         &floor,
@@ -112,7 +108,7 @@ fn part1(floor_str: &str) -> i64 {
 
 fn part2(floor_str: &str) -> i64 {
     let floor = parse_string(floor_str, r"(.)").expect("Error parsing floor");
-    let mut visited_positions: Vec<(i64, i64)> = Vec::new();
+    let mut visited_positions: HashSet<(i64, i64)> = HashSet::new();
     let floor_map = map_floor(&floor);
 
     let current_position = floor_map
@@ -122,7 +118,7 @@ fn part2(floor_str: &str) -> i64 {
         .0
         .clone();
 
-    visited_positions.push(current_position.clone());
+    visited_positions.insert(current_position.clone());
 
     walk_path(
         &floor,

@@ -22,9 +22,9 @@ fn generate_combinations(chars: &Vec<char>, length: usize) -> Vec<Vec<char>> {
     result
 }
 
-fn get_result(rules: &str, add_pipe: bool) -> i64 {
+fn get_result(puzzle: &str, add_pipe: bool) -> i64 {
     let mut total = 0;
-    let rows = parse_string(rules, r"(\d+)").expect("Error parsing rules");
+    let rows = parse_string(puzzle, r"(\d+)").expect("Error parsing puzzle");
     let mut operators = vec!['+', '*'];
     if add_pipe {
         operators.push('|');
@@ -62,12 +62,12 @@ fn get_result(rules: &str, add_pipe: bool) -> i64 {
     total
 }
 
-fn part1(rules: &str) -> i64 {
-    get_result(rules, false)
+fn part1(puzzle: &str) -> i64 {
+    get_result(puzzle, false)
 }
 
-fn part2(rules: &str) -> i64 {
-    get_result(rules, true)
+fn part2(puzzle: &str) -> i64 {
+    get_result(puzzle, true)
 }
 
 fn main() {

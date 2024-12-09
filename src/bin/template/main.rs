@@ -1,13 +1,13 @@
 use aoc_2024::parse_string;
 
-fn part1(rules: &str) -> i64 {
-    let rows = parse_string(rules, r"(\d+)").expect("Error parsing rules");
+fn part1(puzzle: &str) -> i64 {
+    let rows = parse_string(puzzle, r"(\d+)").expect("Error parsing puzzle");
 
     0
 }
 
-fn part2(rules: &str) -> i64 {
-    let rows = parse_string(rules, r"(\d+)").expect("Error parsing rules");
+fn part2(puzzle: &str) -> i64 {
+    let rows = parse_string(puzzle, r"(\d+)").expect("Error parsing puzzle");
     
     0
 }

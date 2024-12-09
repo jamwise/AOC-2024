@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+
 fn get_disk_map(puzzle: &Vec<usize>) -> Vec<i64> {
     let mut disk_map: Vec<i64> = Vec::new();
 
@@ -58,7 +60,7 @@ fn part2(puzzle: &str) -> i64 {
 
     let mut disk_map: Vec<i64> = Vec::new();
 
-    let mut moved_ids = Vec::new();
+    let mut moved_ids = HashSet::new();
 
     for (id, chunk) in puzzle.chunks(2).enumerate() {
         let mut reverse_index = if puzzle.len() % 2 == 0 {
@@ -87,7 +89,7 @@ fn part2(puzzle: &str) -> i64 {
                     if reverse_file_size <= space_size && !moved_ids.contains(&reverse_file_id) {
                         disk_map.extend(vec![reverse_file_id as i64; reverse_file_size]);
                         space_size -= reverse_file_size;
-                        moved_ids.push(reverse_file_id);
+                        moved_ids.insert(reverse_file_id);
                     }
                     reverse_index -= 2;
                 }

@@ -23,7 +23,7 @@ fn main() {
         let output = std::process::Command::new("cargo")
             .arg("run")
             .arg("--bin")
-            .arg(&day.to_string())
+            .arg(format!("{:02}", day))
             .output()
             .expect("failed to execute process");
 

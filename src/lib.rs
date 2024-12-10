@@ -96,3 +96,10 @@ where T: std::fmt::Display
         println!();
     }
 }
+
+pub fn is_in_bounds<T, U>(position: &(U, U), grid: &Vec<Vec<T>>) -> bool
+where
+    U: std::cmp::PartialOrd<usize> + Into<usize> + Copy,
+{
+    position.1 >= 0 && position.1 < grid.len() && position.0 >= 0 && position.0 < grid[0].len()
+}

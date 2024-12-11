@@ -1,10 +1,10 @@
-use aoc_2024::{parse_string, log_output};
-use std::collections::HashMap;
+use aoc_2024::{log_output, parse_string};
 use std::cmp::Ordering;
+use std::collections::HashMap;
 
 fn part1(rules: &str, updates: &str) -> i64 {
-    let rule_rows = parse_string(rules, r"(\d+)|(\d+)").expect("Error parsing rules");
-    let update_rows = parse_string(updates, r"(\d+)").expect("Error parsing rules");
+    let rule_rows = parse_string(rules, vec!["|"]);
+    let update_rows = parse_string(updates, vec![","]);
 
     let rules_hash = rule_rows.iter().fold(HashMap::new(), |mut acc, row| {
         let entry = acc.entry(row[0].clone()).or_insert(vec![]);
@@ -35,8 +35,8 @@ fn part1(rules: &str, updates: &str) -> i64 {
 }
 
 fn part2(rules: &str, updates: &str) -> i64 {
-    let rule_rows = parse_string(rules, r"(\d+)|(\d+)").expect("Error parsing rules");
-    let update_rows = parse_string(updates, r"(\d+)").expect("Error parsing rules");
+    let rule_rows = parse_string(rules, vec!["|"]);
+    let update_rows = parse_string(updates, vec![","]);
 
     let rules_hash = rule_rows.iter().fold(HashMap::new(), |mut acc, row| {
         let entry = acc.entry(row[0].clone()).or_insert(vec![]);
@@ -50,11 +50,17 @@ fn part2(rules: &str, updates: &str) -> i64 {
         let mut sorted_update = update.clone();
         let mut sorted = false;
         sorted_update.sort_by(|a, b| {
-            if rules_hash.get(a).map_or(false, |rule_vec| rule_vec.contains(b)) {
+            if rules_hash
+                .get(a)
+                .map_or(false, |rule_vec| rule_vec.contains(b))
+            {
                 sorted = true;
                 return Ordering::Less;
             }
-            if rules_hash.get(b).map_or(false, |rule_vec| rule_vec.contains(b)) {
+            if rules_hash
+                .get(b)
+                .map_or(false, |rule_vec| rule_vec.contains(b))
+            {
                 sorted = true;
                 return Ordering::Greater;
             }
@@ -70,20 +76,18 @@ fn part2(rules: &str, updates: &str) -> i64 {
 }
 
 fn main() {
-    log_output(
-        1,
-        || part1(
+    log_output(1, || {
+        part1(
             include_str!("data_rules.txt"),
-            include_str!("data_updates.txt")
+            include_str!("data_updates.txt"),
         )
-    );
-    log_output(
-        2,
-        || part2(
+    });
+    log_output(2, || {
+        part2(
             include_str!("data_rules.txt"),
-            include_str!("data_updates.txt")
+            include_str!("data_updates.txt"),
         )
-    );
+    });
 }
 
 #[cfg(test)]

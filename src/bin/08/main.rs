@@ -37,7 +37,7 @@ fn get_antinodes(position1: &(i64, i64), position2: &(i64, i64), resonant: bool,
 }
 
 fn count_antinodes(puzzle: &str, resonate: bool) -> i64 {
-    let mut rows = parse_string(puzzle, r"(.)").expect("Error parsing puzzle");
+    let mut rows = parse_string(puzzle, vec![]);
     let mut frequencies = HashMap::new();
     let mut antinodes = HashSet::new();
 

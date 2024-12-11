@@ -42,7 +42,7 @@ pub fn grid_iter<F>(puzzle: &str, mut function: F) -> ()
 where
     F: FnMut(usize, usize, &Vec<Vec<u8>>) -> (),
 {
-    let grid = parse_string(puzzle, r"(.)").expect("Error parsing puzzle");
+    let grid = parse_string(puzzle, vec![]);
 
     let grid: Vec<Vec<u8>> = grid
         .iter()

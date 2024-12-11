@@ -1,4 +1,3 @@
-use fancy_regex::Regex;
 use std::time::Instant;
 
 pub fn parse_csv_by_column<T: std::str::FromStr>(csv_string: &str) -> Vec<Vec<T>>
@@ -49,32 +48,32 @@ where
 
 pub fn parse_string(
     input: &str,
-    pattern: &str,
-) -> Result<Vec<Vec<String>>, Box<dyn std::error::Error>> {
-    let regex = Regex::new(pattern)?;
-
-    let result = input
+    mode: Vec<&str>,
+) -> Vec<Vec<String>> {
+    input
         .lines()
-        .map(|line| {
-            let line_matches: Result<Vec<Vec<String>>, Box<dyn std::error::Error>> = regex
-                .captures_iter(line)
-                .map(
-                    |capture_result| -> Result<Vec<String>, Box<dyn std::error::Error>> {
-                        let captures = capture_result.unwrap();
-
-                        Ok((1..captures.len())
-                            .filter_map(|i| captures.get(i).map(|m| m.as_str().to_string()))
-                            .collect())
-                    },
-                )
-                .collect();
-
-
-            line_matches.map(|matches| matches.into_iter().flatten().collect())
+        .map(|line| match &mode.len() {
+            0 => line
+                .chars()
+                .map(|c| c.to_string())
+                .collect(),
+            _ => {
+                let mut split_result = vec![line.to_string()];
+                
+                for delimiter in mode.iter() {
+                    split_result = split_result
+                        .iter()
+                        .flat_map(|s| s.split(delimiter))
+                        .map(|s| s.to_string())
+                        .collect();
+                }
+                
+                split_result.into_iter()
+                    .filter(|s| !s.is_empty())
+                    .collect()
+            }
         })
-        .collect::<Result<Vec<_>, Box<dyn std::error::Error>>>()?;
-
-    Ok(result)
+        .collect()
 }
 
 pub fn log_output<F>(part: usize, function: F) -> ()

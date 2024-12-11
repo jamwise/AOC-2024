@@ -83,7 +83,7 @@ fn walk_path(
 }
 
 fn part1(floor_str: &str) -> i64 {
-    let floor = parse_string(floor_str, r"(.)").expect("Error parsing floor");
+    let floor = parse_string(floor_str, vec![]);
     let mut visited_positions: HashSet<(i64, i64)> = HashSet::new();
     let floor_map = map_floor(&floor);
 
@@ -107,7 +107,7 @@ fn part1(floor_str: &str) -> i64 {
 }
 
 fn part2(floor_str: &str) -> i64 {
-    let floor = parse_string(floor_str, r"(.)").expect("Error parsing floor");
+    let floor = parse_string(floor_str, vec![]);
     let mut visited_positions: HashSet<(i64, i64)> = HashSet::new();
     let floor_map = map_floor(&floor);
 

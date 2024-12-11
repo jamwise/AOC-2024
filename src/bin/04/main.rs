@@ -1,6 +1,6 @@
 use aoc_2024::{parse_string, log_output};
 
-fn count_x_max(csv_string: &str) -> i64 {
+fn count_x_max(puzzle: &str) -> i64 {
     let directions: Vec<((i64, i64), (i64, i64))> = vec![
         ((1, -1), (-1, 1)), // NE, SW
         ((1, 1), (-1, -1)), // SE, NW
@@ -8,7 +8,7 @@ fn count_x_max(csv_string: &str) -> i64 {
         ((-1, -1), (1, 1)), // NW, SE
     ];
 
-    let rows = parse_string(csv_string, r"([A-Z])").expect("Error parsing CSV");
+    let rows = parse_string(puzzle, vec![]);
 
     let mut total: i64 = 0;
 
@@ -61,7 +61,7 @@ fn count_x_max(csv_string: &str) -> i64 {
     total
 }
 
-fn count_xmas(csv_string: &str) -> i64 {
+fn count_xmas(puzzle: &str) -> i64 {
     let directions: Vec<(i64, i64)> = vec![
         (0, -1),  // N
         (1, 0),   // E
@@ -73,7 +73,7 @@ fn count_xmas(csv_string: &str) -> i64 {
         (-1, -1), // NW
     ];
 
-    let rows = parse_string(csv_string, r"([A-Z])").expect("Error parsing CSV");
+    let rows = parse_string(puzzle, vec![]);
 
     let to_find = vec![
         String::from('X'),

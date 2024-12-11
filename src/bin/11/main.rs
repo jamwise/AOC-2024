@@ -11,7 +11,7 @@ fn process_stone(stone: usize, iteration: usize, iterations: usize) -> usize {
         return process_stone(1, iteration + 1, iterations);
     }
 
-    let digit_count = (stone as f64).log10().floor() as i32 + 1;
+    let digit_count = (stone as f64).log10().floor() as usize + 1;
     let divisor = 10_usize.pow((digit_count / 2) as u32);
 
     if digit_count % 2 == 0 {

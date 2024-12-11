@@ -3,23 +3,20 @@ use cached::proc_macro::cached;
 use aoc_2024::{log_output, parse_string};
 
 #[cached]
-fn process_stone(stone: usize, iteration: usize, iterations: usize) -> usize {
-    if iteration == iterations {
-        return 1;
-    }
-    if stone == 0 {
-        return process_stone(1, iteration + 1, iterations);
-    }
-
+fn recurse(stone: usize, blink: usize, blinks: usize) -> usize {
     let digit_count = (stone as f64).log10().floor() as usize + 1;
-    let divisor = 10_usize.pow((digit_count / 2) as u32);
+    let next = blink + 1;
 
-    if digit_count % 2 == 0 {
-        return process_stone(stone % divisor, iteration + 1, iterations)
-            + process_stone(stone / divisor, iteration + 1, iterations);
+    if blink == blinks {
+        1
+    } else if stone == 0 {
+        recurse(1, next, blinks)
+    } else if digit_count % 2 == 0 {
+        let divisor = 10_usize.pow((digit_count / 2) as u32);
+        recurse(stone % divisor, next, blinks) + recurse(stone / divisor, next, blinks)
+    } else {
+        recurse(stone * 2024, next, blinks)
     }
-
-    process_stone(stone * 2024, iteration + 1, iterations)
 }
 
 fn process_stones(puzzle: &str, iterations: usize) -> usize {
@@ -29,7 +26,7 @@ fn process_stones(puzzle: &str, iterations: usize) -> usize {
     let mut total = 0;
 
     for stone in stones.iter() {
-        total += process_stone(*stone, 0, iterations);
+        total += recurse(*stone, 0, iterations);
     }
 
     total

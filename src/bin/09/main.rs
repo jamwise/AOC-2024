@@ -1,5 +1,5 @@
 use std::collections::HashSet;
-use aoc_2024::log_output;
+use aoc_2024::{parse_string, log_output};
 
 fn get_disk_map(puzzle: &Vec<usize>) -> Vec<i64> {
     let mut disk_map: Vec<i64> = Vec::new();
@@ -22,10 +22,8 @@ fn get_disk_map(puzzle: &Vec<usize>) -> Vec<i64> {
 }
 
 fn part1(puzzle: &str) -> i64 {
-    let puzzle: Vec<usize> = puzzle
-        .chars()
-        .map(|x| x.to_string().parse().unwrap())
-        .collect();
+    let puzzle: Vec<Vec<usize>> = parse_string(puzzle, vec![]);
+    let puzzle = &puzzle[0];
 
     let disk_map = get_disk_map(&puzzle);
 
@@ -54,10 +52,8 @@ fn part1(puzzle: &str) -> i64 {
 }
 
 fn part2(puzzle: &str) -> i64 {
-    let puzzle: Vec<usize> = puzzle
-        .chars()
-        .map(|x| x.to_string().parse().unwrap())
-        .collect();
+    let puzzle: Vec<Vec<usize>> = parse_string(puzzle, vec![]);
+    let puzzle = &puzzle[0];
 
     let mut disk_map: Vec<i64> = Vec::new();
 

@@ -8,7 +8,7 @@ fn count_x_max(puzzle: &str) -> i64 {
         ((-1, -1), (1, 1)), // NW, SE
     ];
 
-    let rows = parse_string(puzzle, vec![]);
+    let rows: Vec<Vec<String>> = parse_string(puzzle, vec![]);
 
     let mut total: i64 = 0;
 
@@ -73,7 +73,7 @@ fn count_xmas(puzzle: &str) -> i64 {
         (-1, -1), // NW
     ];
 
-    let rows = parse_string(puzzle, vec![]);
+    let rows: Vec<Vec<String>> = parse_string(puzzle, vec![]);
 
     let to_find = vec![
         String::from('X'),

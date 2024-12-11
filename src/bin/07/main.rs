@@ -24,22 +24,22 @@ fn generate_combinations(chars: &Vec<char>, length: usize) -> Vec<Vec<char>> {
 
 fn get_result(puzzle: &str, add_pipe: bool) -> i64 {
     let mut total = 0;
-    let rows = parse_string(puzzle, vec![":", " "]);
+    let rows: Vec<Vec<i64>> = parse_string(puzzle, vec![":", " "]);
     let mut operators = vec!['+', '*'];
     if add_pipe {
         operators.push('|');
     }
 
     'row: for row in rows {
-        let desired_total = row[0].parse().expect("Not a number");
+        let desired_total = row[0];
         let combinations = generate_combinations(&operators, row.len() - 2);
 
         for combination in combinations {
-            let mut combination_total: i64 = row[1].parse().expect("Not a number");
+            let mut combination_total: i64 = row[1];
 
             for i in 2..row.len() {
                 let operator = combination[i - 2];
-                let number: i64 = row[i].parse().expect("Not a number");
+                let number: i64 = row[i];
 
                 match operator {
                     '+' => combination_total += number,

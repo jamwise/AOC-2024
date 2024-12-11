@@ -1,3 +1,4 @@
+use std::str::FromStr;
 use std::time::Instant;
 
 pub fn parse_csv_by_column<T: std::str::FromStr>(csv_string: &str) -> Vec<Vec<T>>
@@ -46,20 +47,20 @@ where
     data
 }
 
-pub fn parse_string(
-    input: &str,
-    mode: Vec<&str>,
-) -> Vec<Vec<String>> {
+pub fn parse_string<T>(input: &str, mode: Vec<&str>) -> Vec<Vec<T>>
+where
+    T: FromStr,
+    <T as FromStr>::Err: std::fmt::Debug,
+{
     input
         .lines()
         .map(|line| match &mode.len() {
             0 => line
                 .chars()
-                .map(|c| c.to_string())
+                .map(|c| c.to_string().parse::<T>().unwrap())
                 .collect(),
             _ => {
                 let mut split_result = vec![line.to_string()];
-                
                 for delimiter in mode.iter() {
                     split_result = split_result
                         .iter()
@@ -67,9 +68,10 @@ pub fn parse_string(
                         .map(|s| s.to_string())
                         .collect();
                 }
-                
-                split_result.into_iter()
+                split_result
+                    .into_iter()
                     .filter(|s| !s.is_empty())
+                    .map(|s| s.parse::<T>().unwrap()) 
                     .collect()
             }
         })
@@ -77,7 +79,8 @@ pub fn parse_string(
 }
 
 pub fn log_output<F>(part: usize, function: F) -> ()
-where F: Fn() -> i64
+where
+    F: Fn() -> i64,
 {
     let start = Instant::now();
     let result = function();
@@ -86,7 +89,8 @@ where F: Fn() -> i64
 }
 
 pub fn print_rows<T>(rows: &Vec<Vec<T>>) -> ()
-where T: std::fmt::Display 
+where
+    T: std::fmt::Display,
 {
     for row in rows {
         for cell in row {

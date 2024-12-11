@@ -42,12 +42,7 @@ pub fn grid_iter<F>(puzzle: &str, mut function: F) -> ()
 where
     F: FnMut(usize, usize, &Vec<Vec<u8>>) -> (),
 {
-    let grid = parse_string(puzzle, vec![]);
-
-    let grid: Vec<Vec<u8>> = grid
-        .iter()
-        .map(|row| row.iter().map(|cell| cell.parse().unwrap()).collect())
-        .collect();
+    let grid: Vec<Vec<u8>> = parse_string(puzzle, vec![]);
 
     for y in 0..grid.len() {
         for x in 0..grid[0].len() {

@@ -3,8 +3,8 @@ use std::cmp::Ordering;
 use std::collections::HashMap;
 
 fn part1(rules: &str, updates: &str) -> i64 {
-    let rule_rows = parse_string(rules, vec!["|"]);
-    let update_rows = parse_string(updates, vec![","]);
+    let rule_rows: Vec<Vec<i64>> = parse_string(rules, vec!["|"]);
+    let update_rows: Vec<Vec<i64>> = parse_string(updates, vec![","]);
 
     let rules_hash = rule_rows.iter().fold(HashMap::new(), |mut acc, row| {
         let entry = acc.entry(row[0].clone()).or_insert(vec![]);
@@ -28,15 +28,15 @@ fn part1(rules: &str, updates: &str) -> i64 {
             accumulated_page_numbers.push(page_number.clone());
         }
         let middle_page = update[update.len() / 2].clone();
-        middle_pages.push(middle_page.parse().expect("Error parsing number"));
+        middle_pages.push(middle_page);
     }
 
     middle_pages.iter().sum()
 }
 
 fn part2(rules: &str, updates: &str) -> i64 {
-    let rule_rows = parse_string(rules, vec!["|"]);
-    let update_rows = parse_string(updates, vec![","]);
+    let rule_rows: Vec<Vec<i64>> = parse_string(rules, vec!["|"]);
+    let update_rows: Vec<Vec<i64>> = parse_string(updates, vec![","]);
 
     let rules_hash = rule_rows.iter().fold(HashMap::new(), |mut acc, row| {
         let entry = acc.entry(row[0].clone()).or_insert(vec![]);
@@ -68,7 +68,7 @@ fn part2(rules: &str, updates: &str) -> i64 {
         });
         if sorted {
             let middle_page = sorted_update[sorted_update.len() / 2].clone();
-            middle_pages.push(middle_page.parse().expect("Error parsing number"));
+            middle_pages.push(middle_page);
         }
     }
 

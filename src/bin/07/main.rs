@@ -24,7 +24,7 @@ fn generate_combinations(chars: &Vec<char>, length: usize) -> Vec<Vec<char>> {
 
 fn get_result(puzzle: &str, add_pipe: bool) -> i64 {
     let mut total = 0;
-    let rows: Vec<Vec<i64>> = parse_string(puzzle, vec![":", " "]);
+    let rows: Vec<Vec<i64>> = parse_string(puzzle, vec![':', ' ']);
     let mut operators = vec!['+', '*'];
     if add_pipe {
         operators.push('|');

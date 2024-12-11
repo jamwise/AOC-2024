@@ -3,8 +3,8 @@ use std::cmp::Ordering;
 use std::collections::HashMap;
 
 fn part1(rules: &str, updates: &str) -> i64 {
-    let rule_rows: Vec<Vec<i64>> = parse_string(rules, vec!["|"]);
-    let update_rows: Vec<Vec<i64>> = parse_string(updates, vec![","]);
+    let rule_rows: Vec<Vec<i64>> = parse_string(rules, vec!['|']);
+    let update_rows: Vec<Vec<i64>> = parse_string(updates, vec![',']);
 
     let rules_hash = rule_rows.iter().fold(HashMap::new(), |mut acc, row| {
         let entry = acc.entry(row[0].clone()).or_insert(vec![]);
@@ -35,8 +35,8 @@ fn part1(rules: &str, updates: &str) -> i64 {
 }
 
 fn part2(rules: &str, updates: &str) -> i64 {
-    let rule_rows: Vec<Vec<i64>> = parse_string(rules, vec!["|"]);
-    let update_rows: Vec<Vec<i64>> = parse_string(updates, vec![","]);
+    let rule_rows: Vec<Vec<i64>> = parse_string(rules, vec!['|']);
+    let update_rows: Vec<Vec<i64>> = parse_string(updates, vec![',']);
 
     let rules_hash = rule_rows.iter().fold(HashMap::new(), |mut acc, row| {
         let entry = acc.entry(row[0].clone()).or_insert(vec![]);

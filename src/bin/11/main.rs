@@ -1,20 +1,20 @@
-use aoc_2024::parse_string;
+use aoc_2024::{log_output, parse_string};
 
-fn part1(puzzle: &str) -> i64 {
-    let rows = parse_string(puzzle, r"(\d+)").expect("Error parsing puzzle");
+fn part1(puzzle: &str) -> usize {
+    let puzzle: Vec<Vec<String>> = parse_string(puzzle, vec![]);
 
     0
 }
 
-fn part2(puzzle: &str) -> i64 {
-    let rows = parse_string(puzzle, r"(\d+)").expect("Error parsing puzzle");
+fn part2(puzzle: &str) -> usize {
+    let puzzle: Vec<Vec<String>> = parse_string(puzzle, vec![]);
     
     0
 }
 
 fn main() {
-    println!("Part 1: {}", part1(include_str!("data.txt")));
-    println!("Part 2: {}", part2(include_str!("data.txt")));
+    log_output(1, || part1(include_str!("data.txt")));
+    log_output(2, || part2(include_str!("data.txt")));
 }
 
 #[cfg(test)]

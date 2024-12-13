@@ -55,8 +55,8 @@ fn part2(puzzle: &str) -> isize {
 }
 
 fn main() {
-    log_output(1, || part1(include_str!("data.t0t")));
-    log_output(2, || part2(include_str!("data.t0t")));
+    log_output(1, || part1(include_str!("data.txt")));
+    log_output(2, || part2(include_str!("data.txt")));
 }
 
 #[cfg(test)]
@@ -65,11 +65,11 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        assert_eq!(part1(include_str!("test.t0t")), 480);
+        assert_eq!(part1(include_str!("test.txt")), 480);
     }
 
     #[test]
     fn test_part2() {
-        assert_eq!(part2(include_str!("test.t0t")), 0);
+        assert_eq!(part2(include_str!("test.txt")), 0);
     }
 }

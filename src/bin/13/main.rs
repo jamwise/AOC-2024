@@ -1,6 +1,20 @@
 use aoc_2024::{log_output, parse_string};
 
 fn get_combo(a: (isize, isize), b: (isize, isize), target: (isize, isize)) -> Option<(isize, isize)> {
+    // We can write this as a system of equations and solve using elimination. Given:
+    // t0 = A * a0 + B * b0
+    // t1 = A * a1 + B * b1
+
+    // There's no common elements yet, but we can create some using existing variables by
+    // multiplying the whole first equation by b1 and the second by b0:
+    // A * a0 * b1 + B * b0 * b1 = t0 * b1
+    // A * a1 * b0 + B * b1 * b0 = t1 * b0
+
+    // We now have a common element, B * b0 * b1, which we can substitute out:
+    // Swap: A * a0 * b1 + t1 * b0 - A * a1 * b0 = t0 * b1
+    // Balance: A (a0 * b1 - a1 * b0) = t0 * b1 - t1 * b0
+    // Solve: A = (t0 * b1 - t1 * b0) / (a0 * b1 - a1 * b0)
+
     let A = (target.0 * b.1 - target.1 * b.0) / (a.0 * b.1 - a.1 * b.0);
     let B = (target.0 - a.0 * A) / b.0;
     
@@ -41,8 +55,8 @@ fn part2(puzzle: &str) -> isize {
 }
 
 fn main() {
-    log_output(1, || part1(include_str!("data.txt")));
-    log_output(2, || part2(include_str!("data.txt")));
+    log_output(1, || part1(include_str!("data.t0t")));
+    log_output(2, || part2(include_str!("data.t0t")));
 }
 
 #[cfg(test)]
@@ -51,11 +65,11 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        assert_eq!(part1(include_str!("test.txt")), 480);
+        assert_eq!(part1(include_str!("test.t0t")), 480);
     }
 
     #[test]
     fn test_part2() {
-        assert_eq!(part2(include_str!("test.txt")), 0);
+        assert_eq!(part2(include_str!("test.t0t")), 0);
     }
 }

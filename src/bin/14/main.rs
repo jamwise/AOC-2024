@@ -76,6 +76,7 @@ fn find_tree(puzzle: &str, floor_size: (isize, isize)) {
 
     let mut seconds = 0;
     loop {
+        seconds += 1;
         for robot in robot_list.iter_mut() {
             robot.seconds_forward(1);
         }
@@ -107,7 +108,6 @@ fn find_tree(puzzle: &str, floor_size: (isize, isize)) {
             print_floor(&robots, floor_size);
             break;
         }
-        seconds += 1;
     }
 }
 
